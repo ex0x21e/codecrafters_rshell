@@ -10,10 +10,11 @@ fn main() {
         let mut command: String = String::new();
         io::stdin().read_line(&mut command).unwrap();
 
-        command.trim().to_string();
-        if command == "exit".to_string() {
-            break;
+        let trimmed_command = command.trim();
+
+        if trimmed_command == "exit" {
+            std::process::exit(0)
         }
-        println!("{}: command not found", command.trim());
+        println!("{}: command not found", trimmed_command);
     }
 }
