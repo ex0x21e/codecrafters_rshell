@@ -2,7 +2,8 @@
 use std::io::{self, Write};
 
 fn main() {
-    print!("$ ");
+    loop{
+        print!("$ ");
 
     io::stdout().flush().unwrap();
 
@@ -10,5 +11,7 @@ fn main() {
     io::stdin().read_line(&mut command).unwrap();
 
     println!("{}: command not found", command.trim());
+    }
+    
 
 }
