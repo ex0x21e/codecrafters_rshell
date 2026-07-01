@@ -7,7 +7,7 @@ fn main() {
     io::stdout().flush().unwrap();
 
     let mut input_buf: String = String::new();
-    let mut input_cmd = io::stdin().read_line(buf).unwrap();
+    let mut input_cmd = io::stdin().read_line(&mut input_buf).unwrap();
 
     println!("{input_cmd}: command not found");
 
