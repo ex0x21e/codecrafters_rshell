@@ -16,7 +16,7 @@ fn main() {
         if trimmed_command[0] == "exit" {
             std::process::exit(0)
         }else if trimmed_command[0] == "echo"{
-            println!("{}", trimmed_command[1]);
+            println!("{:?}", &trimmed_command[1..]);
         }else{
             println!("{}: command not found", trimmed_command[0]);
         }
