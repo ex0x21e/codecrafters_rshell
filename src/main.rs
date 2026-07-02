@@ -26,7 +26,7 @@ fn main() {
             }else if args == "type"{
                 println!("{args} is a shell builtin")
             }else{
-                println!("{cmd} invalid_command")
+                println!("{cmd}: not found")
             }
         }
         else{
