@@ -10,8 +10,8 @@ fn main() {
         let mut command: String = String::new();
         io::stdin().read_line(&mut command).unwrap();
 
-        let trimmed_command = command.trim();
-        let tokens:Vec<_> = trimmed_command.split_whitespace().collect();
+        // let trimmed_command = command.trim();
+        let tokens:Vec<_> = command.split_whitespace().collect();
         let cmd = tokens[0];
         let args = tokens[1..].join(" ");
 
