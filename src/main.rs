@@ -18,7 +18,7 @@ fn main() {
         if cmd == "exit" {
             std::process::exit(0)
         }else if cmd == "echo"{
-            println!("{:?}", args);
+            println!("{}", args);
         }else{
             println!("{}: command not found", cmd);
         }
