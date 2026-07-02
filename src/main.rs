@@ -10,11 +10,20 @@ fn main() {
         let mut command: String = String::new();
         io::stdin().read_line(&mut command).unwrap();
 
-        let trimmed_command = command.trim();
+        let trimmed_command:Vec<&str> = command.trim().split(" ").collect();
+        
 
-        if trimmed_command == "exit" {
+        if trimmed_command[0] == "exit" {
             std::process::exit(0)
+        }else if trimmed_command[0] == "echo"{
+            println!("{}", trimmed_command[1]);
+        }else{
+            println!("{}: command not found", trimmed_command[0]);
         }
-        println!("{}: command not found", trimmed_command);
     }
 }
+
+fn print_prompt(){}
+fn read_input(){}
+fn command_formatter()-> &'static str{"s"} // private
+fn print_not_found(){} // printer interface
