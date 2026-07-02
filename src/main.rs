@@ -10,16 +10,16 @@ fn main() {
         let mut command: String = String::new();
         io::stdin().read_line(&mut command).unwrap();
 
-        let trimmed_command:String = command.trim()
-        .split(" ").skip(1).collect();
+        let trimmed_command = command.trim();
+        let args:Vec<_> = trimmed_command.split(" ").skip(1).collect();
         
 
-        if trimmed_command[0] == "exit" {
+        if trimmed_command == "exit" {
             std::process::exit(0)
-        }else if trimmed_command[0] == "echo"{
-            println!("{:?}", &trimmed_command[1..]);
+        }else if trimmed_command == "echo"{
+            println!("{:?}", args);
         }else{
-            println!("{}: command not found", trimmed_command[0]);
+            println!("{}: command not found", trimmed_command);
         }
     }
 }
