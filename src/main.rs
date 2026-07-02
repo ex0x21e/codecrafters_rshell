@@ -23,6 +23,8 @@ fn main() {
                 println!("{args} is a shell builtin")
             }else if args == "exit"{
                 println!("{args} is a shell builtin")
+            }else if args == "type"{
+                println!("{args} is a shell builtin")
             }else{
                 println!("{cmd} invalid_command")
             }
