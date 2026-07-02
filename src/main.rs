@@ -11,15 +11,16 @@ fn main() {
         io::stdin().read_line(&mut command).unwrap();
 
         let trimmed_command = command.trim();
-        let args:Vec<_> = trimmed_command.split(" ").skip(1).collect();
-        
+        let tokens:Vec<_> = trimmed_command.split(" ").collect();
+        let cmd = tokens[0];
+        let args = tokens[1..].join("");
 
-        if trimmed_command == "exit" {
+        if cmd == "exit" {
             std::process::exit(0)
-        }else if trimmed_command == "echo"{
+        }else if cmd == "echo"{
             println!("{:?}", args);
         }else{
-            println!("{}: command not found", trimmed_command);
+            println!("{}: command not found", cmd);
         }
     }
 }
