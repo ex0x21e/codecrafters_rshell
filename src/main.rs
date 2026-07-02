@@ -5,7 +5,7 @@ fn main() {
     loop {
 
         //print prompt
-        print_prompt();
+        print_prompt().unwrap();
 
         //read input
         let mut command: String = String::new();
