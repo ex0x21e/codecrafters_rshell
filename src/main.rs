@@ -1,4 +1,4 @@
-use std::{ffi::OsStr, fs, os::unix::fs::PermissionsExt, path::PathBuf};
+use std::{env, ffi::OsStr, fs, os::unix::fs::PermissionsExt, path::PathBuf};
 #[allow(unused_imports)]
 use std::io::{self, Write};
 
@@ -57,24 +57,22 @@ fn tokenizer(input: &String) -> (String, String) {
 }
 
 
-fn search_exec(command: &String)-> io::Result<PathBuf>{
-    let env_path =  env!("PATH");
-    let path_list:Vec<_> =  env_path.split(":").collect();
+fn search_exec(command: &String) -> io::Result<PathBuf> {
+    let env_path = env::var("PATH").unwrap_or_default();
 
-    for dir in &path_list {
-        for entry in fs::read_dir(dir)? {
-            let entry = entry?;
+    for paths in env::split_paths(&env_path) {
+        for entry in fs::read_dir(paths)?{
+            let entry = entry?; //unpacking entry
             let file_path = entry.path();
 
-            if file_path.is_file() && file_path.file_name() == Some(OsStr::new(&command)){
-                if let Ok(metadata) = fs::metadata(&file_path){
-                    if metadata.permissions().mode() & 0o111 !=0{
-                        return Ok(file_path);
-                    }
-                }
-                
+            if file_path.is_file() && file_path.file_name() == Some(OsStr::new(command)){
+                let metadata = fs::metadata(&file_path)?;
+                if metadata.permissions().mode() & 0o111 != 0{
+                    return  Ok(file_path)
+                }            
             }
         }
     }
-    Err(io::Error::new(io::ErrorKind::NotFound, "command not found"))
+
+    Err(io::Error::new(io::ErrorKind::NotFound, "команда не найдена"))
 }
