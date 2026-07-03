@@ -62,8 +62,3 @@ fn tokenizer(input: String) -> (String, String) {
     let args = tokens[1..].join(" ");
     (cmd, args)
 }
-
-fn command_formatter() -> &'static str {
-    "s"
-} // private
-fn print_not_found() {} // printer interface
