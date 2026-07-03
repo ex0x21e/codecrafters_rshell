@@ -37,7 +37,7 @@ fn main() {
             "type" => {
                 match args.as_str() {
                     "echo" | "exit" | "type" => println!("{args} is a shell builtin"),
-                    _ => println!("{cmd}: command not found"),
+                    _ => println!("{cmd}: not found"),
                 }
             }
             _ => println!("{cmd}: command not found"),
