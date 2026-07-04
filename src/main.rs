@@ -22,11 +22,19 @@ fn main() {
             "exit" => std::process::exit(0),
             "echo" => println!("{args}"),
             "type" => match args.as_str() {
-                "echo" | "exit" | "type" => println!("{args} is a shell builtin"),
+                "echo" | "exit" | "type"| "pwd" => println!("{args} is a shell builtin"),
                 _ => match search_exec(&args) {
                     Ok(path) => println!("{args} is {}", path.display()),
                     _ => println!("{args}: not found"),
                 },
+            },
+
+            "pwd" => {
+                if let Ok(wd) = env::current_dir(){
+                    println!("{}",wd.display())
+                }else{
+
+                }
             },
 
             _ => {
