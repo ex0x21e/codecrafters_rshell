@@ -22,7 +22,7 @@ fn main() {
             "exit" => std::process::exit(0),
             "echo" => println!("{args}"),
             "type" => match args.as_str() {
-                "echo" | "exit" | "type"| "pwd" => println!("{args} is a shell builtin"),
+                "echo" | "exit" | "type" | "pwd" | "cd" => println!("{args} is a shell builtin"),
                 _ => match search_exec(&args) {
                     Ok(path) => println!("{args} is {}", path.display()),
                     _ => println!("{args}: not found"),
@@ -32,10 +32,16 @@ fn main() {
             "pwd" => {
                 if let Ok(wd) = env::current_dir(){
                     println!("{}",wd.display())
-                }else{
-
                 }
             },
+
+            "cd" => {
+                if let Err(_) = env::set_current_dir(&args){
+                    eprintln!("cd: {args}: No such file or directory")
+                }else{
+                    env::current_dir().unwrap();
+                }
+            }
 
             _ => {
                 //here !
