@@ -30,25 +30,29 @@ fn main() {
             },
 
             "pwd" => {
-                if let Ok(wd) = env::current_dir(){
-                    println!("{}",wd.display())
+                if let Ok(wd) = env::current_dir() {
+                    println!("{}", wd.display())
                 }
-            },
+            }
 
             "cd" => {
-                if let Err(_) = env::set_current_dir(&args){
-                    eprintln!("cd: {args}: No such file or directory")
+                let target = if args == "~"{
+                    env::var("HOME").unwrap_or_default()
                 }else{
-                    env::current_dir().unwrap();
+                    args.clone()
+                };
+
+                if let Err(_) = env::set_current_dir(&target) {
+                    eprintln!("cd: {}: No such file or directory", args)
                 }
             }
 
             _ => {
                 //here !
                 let result = run_program(&cmd, &args);
-                if let Ok(mut child) = result{
+                if let Ok(mut child) = result {
                     child.wait().unwrap();
-                }else{
+                } else {
                     println!("{cmd}: command not found");
                 }
             }
@@ -100,9 +104,7 @@ fn search_exec(command: &String) -> io::Result<PathBuf> {
 fn run_program(command: &String, args: &String) -> io::Result<std::process::Child> {
     let arg_vec: Vec<_> = args.split_whitespace().collect();
 
-    let child = Command::new(command)
-        .args(arg_vec)
-        .spawn();
+    let child = Command::new(command).args(arg_vec).spawn();
 
     child
 }
@@ -120,12 +122,12 @@ fn is_exec(file: &PathBuf) -> bool {
 #[cfg(test)]
 mod tests {
 
-use super::*;
+    use super::*;
 
     #[test]
     fn test_run_program() {
         let result = run_program(&"gcc".to_string(), &"".to_string());
-        if let Ok(mut result) = result{
+        if let Ok(mut result) = result {
             result.wait().unwrap();
         } // ждем завершения, чтобы не оставить зомби-процесс
     }
