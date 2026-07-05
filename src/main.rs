@@ -49,8 +49,8 @@ fn main() {
 
             _ => {
                 //here !
-                let result = run_program(&cmd, &args);
-                if let Ok(mut child) = result {
+                let result_child = run_program(&cmd, &args);
+                if let Ok(mut child) = result_child {
                     child.wait().unwrap();
                 } else {
                     println!("{cmd}: command not found");
